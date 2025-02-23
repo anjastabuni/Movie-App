@@ -21,14 +21,14 @@ Movie Search App adalah aplikasi berbasis web yang memungkinkan pengguna mencari
 ### 1️⃣ Clone Repository
 
 ```sh
-git clone https://github.com/username/movie-search-app.git
-cd movie-search-app
+git clone https://github.com/anjastabuni/Movie-App.git
+cd Movie-App
 ```
 
 ### 2️⃣ Install Dependencies
 
 ```sh
-npm install
+npm install express ejs dotenv
 ```
 
 ### 3️⃣ Konfigurasi Environment Variables
@@ -37,7 +37,6 @@ Buat file `.env` di root project dan tambahkan:
 
 ```sh
 TMDB_API_KEY=your_tmdb_api_key
-PORT=3000
 ```
 
 > **Catatan:**
@@ -47,7 +46,7 @@ PORT=3000
 ### 4️⃣ Menjalankan Server
 
 ```sh
-npm start
+nodemon server.js
 ```
 
 Aplikasi akan berjalan di `http://localhost:3000`
@@ -58,7 +57,6 @@ Aplikasi akan berjalan di `http://localhost:3000`
 
 ```
 movie-search-app/
-│── public/         # Folder untuk CSS, JS, dan assets
 │── views/          # Template EJS
 │   ├── index.ejs   # Halaman utama
 │   ├── search.ejs  # Halaman hasil pencarian
@@ -84,7 +82,7 @@ movie-search-app/
 
 ## 💡 Kontribusi
 
-saya terbuka untuk kontribusi guna menyempurnakan code, fitur, dan mempercantik halaman 🚀
+saya terbuka untuk kontribusi guna belajar bersama dalam menyempurnakan code, fitur, dan mempercantik halaman 🚀
 
 ### Cara Berkontribusi
 
