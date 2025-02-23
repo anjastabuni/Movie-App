@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <nav class="bg-gray-800" x-data="{ open: false }">
+      <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+          <!-- Mobile menu button -->
+          <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            <button
+              @click="open = !open"
+              type="button"
+              class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-none focus:ring-inset"
+              aria-controls="mobile-menu"
+              :aria-expanded="open"
+            >
+              <span class="sr-only">Open main menu</span>
+              <!-- Menu (hamburger icon) -->
+              <svg x-show="!open" x-cloak class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <!-- Close (X) icon -->
+              <svg x-show="open" x-cloak class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="hidden sm:block">
+              <div class="flex space-x-4">
+                <a href="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Dashboard</a>
+                <a href="/favorit" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Film Favorit</a>
+                <a href="/riwayat" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Riwayat Pencarian</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div x-show="open" x-cloak class="sm:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pt-2 pb-3">
+          <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Dashboard</a>
+          <a href="/favorit" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Film Favorit</a>
+          <a href="/riwayat" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Riwayat Pencarian</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+      <form action="/search" method="GET" class="mt-6 flex justify-center">
+        <input type="text" name="q" placeholder="Cari film..." class="w-1/2 p-2 rounded-l-lg text-black" />
+        <button type="submit" class="bg-blue-600 p-2 rounded-r-lg">Search</button>
+      </form>
+
+      <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold text-white">🧐 Hasil Pencarian</h1>
+        <% if (error) { %>
+        <p class="text-red-500 mt-4"><%= error %></p>
+        <% } %>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <% movies.forEach(movie => { %>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <img src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>" class="w-full h-80 object-cover rounded-lg" />
+            <h2 class="text-lg font-semibold mt-2"><a href="/detail/<%= movie.id %>"><%= movie.title %></a></h2>
+            <p class="text-sm text-gray-400">⭐ <%= movie.vote_average %> | 🗓 <%= movie.release_date %></p>
+          </div>
+          <% }); %>
+        </div>
+        <div class="flex justify-between mt-4">
+          <% if (page > 1) { %>
+          <a href="/search?q=<%= query %>&page=<%= page - 1 %>" class="bg-blue-500 px-4 py-2 rounded text-white">Previous</a>
+          <% } %> <% if (page < totalPages) { %>
+          <a href="/search?q=<%= query %>&page=<%= page + 1 %>" class="bg-blue-500 px-4 py-2 rounded text-white">Next</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
