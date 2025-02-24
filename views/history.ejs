@@ -1,0 +1,20 @@
+<% layout('layout/app') %>
+
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center">🔍 Riwayat Pencarian</h1>
+
+  <% if (history.length === 0) { %>
+  <p class="text-center text-gray-600 mt-4">Belum ada riwayat pencarian.</p>
+  <% } else { %>
+  <div class="mt-6">
+    <ul class="space-y-4">
+      <% history.forEach(item => { %>
+      <li class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
+        <span class="text-white text-lg">📌 "<%= item.query %>"</span>
+        <a href="/search?q=<%= item.query %>" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white transition"> 🔄 Cari Lagi </a>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+  <% } %>
+</div>
